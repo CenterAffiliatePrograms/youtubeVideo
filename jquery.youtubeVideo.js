@@ -36,7 +36,8 @@ logo - Показывать/скрывать логотип youtube на эле�
 					'frameborder': '0',
 					'src': 'https://www.youtube.com/embed/'+ url,
 					'width': $this.width(),
-					'height': $this.height()
+					'height': $this.height(),
+					'allowfullscreen': ''
 				});
 				$this.html(iframe);
 			});
