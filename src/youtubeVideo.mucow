@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HTMLWidget name="YouTube video" formatNumber="3" 
+	localization="none"
+	creator="login2030"
+	defaultWidth="560"
+	defaultHeight="315"
+>
+<parameters>
+	<separator/>
+	<info label="Настройка виджета"/>
+	<separator/>
+		<file name="play"
+			label="Кнопка плей"
+			fileTypes="*.jpg;*.jpeg;*.png;*.gif"
+			fileRequiredForOutput="false"
+		/>
+		<file name="image"
+			label="Превью для видео"
+			fileTypes="*.jpg;*.jpeg;*.png;*.gif"
+			fileRequiredForOutput="false"
+		/>
+		<text name="url"
+			defaultValue="1blERxc-vyw" 
+			label="ID видео"
+			multiline="false"
+		/>
+		<separator/>
+		<bool name="control" label="Элементы управления" defaultValue="true">
+			<trueVal value="true" />
+			<falseVal value="false"/>
+		</bool>
+		<bool name="related" label="Похожие видео" defaultValue="true">
+			<trueVal value="true" />
+			<falseVal value="false"/>
+		</bool>
+		<bool name="info" label="информация о видео" defaultValue="true">
+			<trueVal value="true" />
+			<falseVal value="false"/>
+		</bool>
+		<bool name="logo" label="Логотип на элементах упраления" defaultValue="true">
+			<trueVal value="true" />
+			<falseVal value="false"/>
+		</bool>
+		
+	<builtIn name="width"/>
+	<builtIn name="height"/>
+	<builtIn name="itemUID"/>
+</parameters>
+
+<headHTML>
+	<![CDATA[
+		<style>
+			#video-{param_itemUID},
+			#video-{param_itemUID}__after,
+			#video-{param_itemUID}__play {
+			  width: {param_width}px;
+			  height: {param_height}px;
+			}
+			#video-{param_itemUID} {
+			  position: relative;
+			}
+			#video-{param_itemUID}__after {
+			  position: absolute;
+			  background-size: cover;
+			  cursor: pointer;
+			  top: 0;
+			  left: 0;
+			  z-index: 99;
+			}
+			#video-{param_itemUID}__play {
+			  opacity: 1;
+			}
+			#video-{param_itemUID}__play:hover {
+			  opacity: 0.8;
+			}
+		</style>
+	]]>
+</headHTML>
+
+<pageItemHTML>
+	<![CDATA[
+		<div id="video-{param_itemUID}" data-video="https://www.youtube.com/embed/{param_url}">
+			<div id="video-{param_itemUID}__after"><div id="video-{param_itemUID}__play"></div></div>
+		</div>
+	]]>
+</pageItemHTML>
+
+<bodyEndHTML>
+	<![CDATA[
+	<script type="text/javascript">
+		(function() {
+		'use strict';
+		var video = $('#video-{param_itemUID}');
+		var after = $('#video-{param_itemUID}__after');
+		var play = $('#video-{param_itemUID}__play');
+		
+		var playImg = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAERklEQVR4nOWbTWhcVRTHb1IJVoxGtNCNdal2JYJReC6GWuO83PM/59yUS3FRFARdFlwYP1CfiojQWt36sRCUurRIdVFXIn41lAoVdRGrG1M01YpKrWjiYmaSl8ybZJL3cd+YA//NLObd3++eO8x79z5jSq5Gw+8kov0AP8vMR5l1BtBZQM4B8ks75wCdZdYZZj5qLZ4hov2Nht9Z9vhKKSIaB/gI4M4w62KeAO6Mte4lYOq20FxrlqqOibhHmeWbvNC9ZfDX1mLae391aN6limO/gwgvAPJbWeAZuSDingdwXTBw7/0IsyaA/Fkh+KqOkD+YNfHej1QKD+y7iVlOhgLvFqFfNJvNGyuBJ+KDAF8MDd0tgS8y64OlgSdJMsysL4cG7SOHkyQZLhTee7+d2R2rAVy/S+Jd7/32ouBHAP4gNNRGQyTHc/84NhqNywZp5rvjjnnvt21aABFeCQ+RLwAf2hQ8s7sv9OCLk6AHNgQvIrvbfzKCD76g/O6cu7lf/iER/aQGgy448pExZmhdegAPhR9sObFWH1gT3lp7DaA/5bkIgJhZPgsNmz02novj+KqeApj1ubwXWe4kdyeznAgNvTpE/HQmvKqOMeuFogTUVQSRno+iaLRLAJF7uIgL9O4ubgL8aWgB7S44mNX+35YpICUiAvS9sBLkq1WzT+NFffl6AuoiApi6NT37h6sWkBIRZGkQ8YtLgyji6e1mBYTqCEBPG2Naz+0BWQgtoGoRgCzEsd9hAN1X5BfnFZASUfrSAFQNsyZ1FJASUVpHiLinDJG8U2cBZYogkrcNs5waBAGdstbeU9zdqpw0gPwwSAI6VUxHyFlDpOcHUUBBIuYNs14aZAE5RVwyzPr3/0EAEY0TyfGNjBWQvwZ+CTSbehfAH29mrID8bET0+0EUkAd8WYDOmqJ3ecsG30yr9wqRfm6Y+a1BEFDEjHfHvWmY9ck6CygHvBVr8Xhtb4ZE5HZA3y8DvBNA1TjnrmXWf+sioMwZX5V/VHXMGGMMoKdDCxCRvRWBdzKzdHEO+EisilbPyopHYqp6S9UCAsz4iojI7hUDAtyXVQgIDd6KnOoaWNkbI6FaPSuZGyMArsi7MZoloB4zviI/Nhr3X95jltwTRQmoIfgisy5ai+me67OI7fE4nrqjrqfK1t0eby0FPRB6oGVlchL3rgnfrq19RKbVBdhV9IOSwJmfmJi4vi/4ThERitwyCxVAFqydshuCX5awhQ9KtmuIWd8IDZED/nXT77rvVVv6sHRKwjYi91poqP7Dr+Y6JJ1VSZIMA3wkPNy6bX+o8Bcm0sXMdwM8Fxo0A3xORPaWBp6uPXsmbxCRD0NDL0dOANhVCXy6iAjMcjbcrMt3RITKwdMVRdFo+y5yvkL4eWZ+zHt/ZVD4dEVRNGotpst+dZZZH8k86lqn2pIvT/eqrNfn2xuyqYPZ8mv7s8pfn/8Pybm4TIjanscAAAAASUVORK5CYII=';
+		
+		
+		/* Параметры из виджета */
+		var param =  {
+			play: '{param_play}',
+			image: '{param_image}',
+			control: {param_control},
+			rel: {param_related},
+			info: {param_info},
+			logo: {param_logo},
+			url: '',
+		};
+		
+		/* Параметры по условию */
+		param.play = param.play === 'Add File' ? 'url("' + playImg + '") center center no-repeat' : 'url("{param_play}") center center no-repeat';
+		
+		param.image = param.image === 'Add File' ? '#F791BE' : 'url("{param_image}") center center no-repeat';
+		
+		param.control = param.control ? 2 : 0;
+		param.rel = param.rel ? 1 : 0;
+		param.info = param.info ? 1 : 0;
+		param.logo = param.logo ? 0 : 1;
+		
+		param.url = '?autoplay=1&autohide=1&rel=' + param.rel + '&showinfo=' + param.info + '&modestbranding=' + param.logo + '&controls=' + param.control
+		
+		/* Применяем параметры */
+		play.css({
+			background: param.play
+		});
+		after.css({
+			background: param.image
+		});
+		
+		/* Меняем картинку на виде по событию */
+		after.click(function (e) {
+			var iframe = $('<iframe/>', {
+				'frameborder': '0',
+				'src': video.attr('data-video') + param.url,
+				'width': after.width(),
+				'height': after.height(),
+				'allowfullscreen': ''
+			});
+			video.append(iframe);
+			after.css({ display: 'none' });
+		});
+		})();
+	</script>
+	]]>
+</bodyEndHTML>
+
+</HTMLWidget>
